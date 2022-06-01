@@ -1,0 +1,35 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Mon May 30 15:50:31 2022
+
+@author: Mehmet
+"""
+from googletrans import Translator
+import csv
+filename= "dialogs.csv" #csv name
+line_count=0
+translater = Translator()
+a=[]
+with open(filename,'r') as csvfile:
+    reader = csv.reader(csvfile) 
+    print("*****")
+    print("csvfile")
+    for row in reader:
+        v = f'{row}' #csv row's
+        if line_count==0:
+            line_count+=1
+            
+          
+        
+        out = translater.translate(v, dest="tr",encoding="utf-8") #v = orginal csv language , dest = language to translate
+        a.append(out.text)
+        print(out.text)
+        v= len(f'{row}')+1
+        with open("new.csv","w",encoding='UTF-32',newline=('')) as p: #write new csv
+            for i in range (len(a)):
+                writer = csv.writer(p)
+                writer.writerow([a[i]])
+        
+     
+        line_count+=1
+    print(f"Total Line = {line_count}")
